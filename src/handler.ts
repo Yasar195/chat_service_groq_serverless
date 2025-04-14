@@ -5,6 +5,7 @@ import { chat } from './logic/chat';
 export const handler = async (event: APIGatewayEvent, context: Context, callback: Callback)=> {
 
     try {
+
         if(!event.body) {
             (() => { throw new Error("Request body is missing.") })();
         }
@@ -19,15 +20,17 @@ export const handler = async (event: APIGatewayEvent, context: Context, callback
 
         
         const response = {
-            statusCode: 200,
+            statusCode: chatresponse.status,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(chatresponse)
         }
 
         return response;
+        
     }
     catch(error) {
         const errbody: responsetype<null> = {
+            status: 500,
             success: false,
             message: "Internal server error",
             data: null,

@@ -1,4 +1,4 @@
-import { chatInput, responsetype } from "../dto/dto";
+import { chatInput, responsetype, replyDto } from "../dto/dto";
 import Groq from "groq-sdk";
 
 export const chat = async (input: chatInput): Promise<responsetype<{reply: String}>| responsetype<null>> => {
@@ -27,11 +27,10 @@ export const chat = async (input: chatInput): Promise<responsetype<{reply: Strin
               },
             ],
             model,
-          });
+        });
         
-        const response: responsetype<{
-            reply: String
-        }> = {
+        const response: responsetype<replyDto> = {
+            status: 200,
             success: true,
             message: `reply from ${name}`,
             data: {
@@ -44,6 +43,7 @@ export const chat = async (input: chatInput): Promise<responsetype<{reply: Strin
     }
     catch(error) {
         const reponse: responsetype<null> = {
+            status: 400,
             success: false,
             message: `error reaching chat service...`,
             data: null,
