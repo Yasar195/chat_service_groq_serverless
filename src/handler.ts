@@ -1,6 +1,6 @@
 import {APIGatewayEvent, Context, Callback} from 'aws-lambda';
 import { responsetype, chatInput } from './dto/dto';
-import { chat } from './logic/chat';
+import { chat } from './service/chat';
 
 export const handler = async (event: APIGatewayEvent, context: Context, callback: Callback)=> {
 
@@ -26,7 +26,7 @@ export const handler = async (event: APIGatewayEvent, context: Context, callback
         }
 
         return response;
-        
+
     }
     catch(error) {
         const errbody: responsetype<null> = {
