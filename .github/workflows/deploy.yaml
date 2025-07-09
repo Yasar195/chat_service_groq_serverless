@@ -40,13 +40,7 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
-        # Also tag as latest if this is main branch
-        if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        fi
-        
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     - name: Image digest
-      run: echo "Image pushed with digest ${{ steps.build-image.outputs.image }}
+      run: echo "Image pushed with digest ${{ steps.build-image.outputs.image }}"
